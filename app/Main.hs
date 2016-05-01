@@ -2,6 +2,7 @@ module Main where
 
 import Control.Monad
 import Data.Angle
+import System.Environment
 import qualified Data.ByteString.Char8 as B
 
 import Lib
@@ -16,7 +17,8 @@ data MapPoint = MapPoint { mapX :: Integer
 main :: IO ()
 main = do
   osgn <- osgns
-  pf <- B.readFile "/home/daniel/Dropbox/Work/March Stones/PLAN FREEDOM 1929.jpg.points"
+  fp <- getArgs
+  pf <- B.readFile $ head fp
   let pts = readPoints pf
       latLonStr p = show (getDegs . snd $ llpt) ++ "," ++ show (getDegs . fst $ llpt) 
         where llpt = latLonPoint osgn p
